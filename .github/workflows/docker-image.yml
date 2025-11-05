@@ -50,4 +50,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/adah001/guess-game:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/adah001/guess-game:${{ github.run_number }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/guess-game:${{ github.run_number }}
