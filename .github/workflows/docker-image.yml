@@ -49,5 +49,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/color-app:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/color-app:${{ github.run_number }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/adah001/guess-game:${{ github.run_number }}
