@@ -1,5 +1,8 @@
 name: Docker Image CI
 
+permissions:
+  contents: write  # ✅ allow workflow to push commits
+
 on:
   push:
     branches: [ "main" ]
