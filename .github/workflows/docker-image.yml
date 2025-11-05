@@ -44,32 +44,27 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/guess-game:${{ github.run_number }}
 
-updatek8s:
-  runs-on: ubuntu-latest
-  needs: docker
+  updatek8s:  # ✅ This must be aligned under "jobs:"
+    runs-on: ubuntu-latest
+    needs: build-and-push  # ✅ Matches the name of the previous job
 
-  steps:
-    # 1️⃣ Checkout the repository
-    - name: Checkout code
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      # 1️⃣ Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-    # 2️⃣ Update image tag in Kubernetes deployment manifest
-    - name: Update tag in Kubernetes deployment manifest
-      run: |
-        sed -i "s|image: .*|image: ${{ secrets.DOCKER_USERNAME }}/guess-game:${{ github.run_id }}|" kubernetes/productcatalog/deploy.yaml
+      # 2️⃣ Update image tag in Kubernetes manifest
+      - name: Update tag in Kubernetes deployment manifest
+        run: |
+          sed -i "s|image: .*|image: ${{ secrets.DOCKERHUB_USERNAME }}/guess-game:${{ github.run_number }}|" game.yaml
 
-    # 3️⃣ Commit and push the updated manifest back to the main branch
-    - name: Commit and push changes
-      run: |
-        git config --global user.email "mlinkeds@gmail.com"
-        git config --global user.name "peter"
-        git add ./game.yaml
-        git commit -m "[CI]: Update guess-game image tag"
-        git push origin HEAD:main -f
-
-            
-
-   
-
+      # 3️⃣ Commit and push the updated manifest back to main branch
+      - name: Commit and push changes
+        run: |
+          git config --global user.email "mlinkeds@gmail.com"
+          git config --global user.name "peter"
+          git add game.yaml
+          git commit -m "[CI]: Update guess-game image tag"
+          git push origin HEAD:main -f
