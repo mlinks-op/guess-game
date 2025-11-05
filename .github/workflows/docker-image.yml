@@ -65,8 +65,8 @@ updatek8s:
       run: |
         git config --global user.email "mlinkeds@gmail.com"
         git config --global user.name "peter"
-        git add kubernetes/productcatalog/deploy.yaml
-        git commit -m "[CI]: Update product catalog image tag"
+        git add ./game.yaml
+        git commit -m "[CI]: Update guess-game image tag"
         git push origin HEAD:main -f
 
             
