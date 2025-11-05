@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guess-game-deployment
+  labels:
+    app: guess-game
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: guess-game
+  template:
+    metadata:
+      labels:
+        app: guess-game
+    spec:
+      containers:
+        - name: guess-game
+          image: adah001/guess-game/guess-game:latest  # replace with your image tag if not 'latest'
+          ports:
+            - containerPort: 3000  # change if your app listens on another port
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: guess-game-service
+  labels:
+    app: guess-game
+spec:
+  type: LoadBalancer
+  selector:
+    app: guess-game
+  ports:
+    - port: 80
+      targetPort: 3000  # same as containerPort above
+      protocol: TCP
