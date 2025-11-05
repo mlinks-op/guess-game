@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Number Guessing Game</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #222;
+      color: #fff;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+    #messages {
+      margin-top: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 Multiplayer Number Guessing Game</h1>
+  <input type="number" id="guessInput" placeholder="Enter a number..." />
+  <button onclick="sendGuess()">Guess</button>
+
+  <div id="messages"></div>
+
+  <script>
+    const socket = io();
+
+    socket.on("message", (msg) => {
+      const div = document.createElement("div");
+      div.textContent = msg;
+      document.getElementById("messages").appendChild(div);
+    });
+
+    function sendGuess() {
+      const num = document.getElementById("guessInput").value;
+      if (num) {
+        socket.emit("guess", parseInt(num));
+        document.getElementById("guessInput").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
