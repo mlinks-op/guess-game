@@ -49,5 +49,6 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/adah001/guess-game:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/guess-game:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/guess-game:${{ github.run_number }}
+
