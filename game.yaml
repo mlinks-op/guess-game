@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: guess-game
-          image: adah001/guess-game:19
+          image: adah001/guess-game:21
           ports:
             - containerPort: 3000  # change if your app listens on another port
           imagePullPolicy: Always
