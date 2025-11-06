@@ -20,18 +20,3 @@ spec:
           ports:
             - containerPort: 3000  # change if your app listens on another port
           imagePullPolicy: Always
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: guess-game-service
-  labels:
-    app: guess-game
-spec:
-  type: LoadBalancer
-  selector:
-    app: guess-game
-  ports:
-    - port: 80
-      targetPort: 3000  # same as containerPort above
-      protocol: TCP
